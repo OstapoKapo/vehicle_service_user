@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",         /* Цільова версія JavaScript */
+    "module": "NodeNext",        /* Сучасна система модулів Node.js */
+    "moduleResolution": "NodeNext",
+    "rootDir": "./src",          /* Де лежить наш TS-код */
+    "outDir": "./dist",          /* Куди компілювати JS для продакшену */
+    "strict": true,              /* Увімкнути всі суворі перевірки */
+    "esModuleInterop": true,     /* Дозволяє import ... from ... */
+    "skipLibCheck": true         /* Прискорює компіляцію */
+  },
+  "include": ["src/**/*"] /* Які папки перевіряти */
+}

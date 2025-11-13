@@ -20,3 +20,4 @@
 # Системні файли (macOS, Windows)
 .DS_Store
 Thumbs.db
+/src/generated/prisma
