@@ -1,0 +1,22 @@
+# Залежності та кеш
+/node_modules
+/npm-debug.log*
+/yarn-debug.log*
+/yarn-error.log*
+.npm
+.yarn/cache
+
+# Папки збірки (якщо ви компілюєте, напр. TypeScript)
+/dist
+/build
+
+# Файли середовища - НІКОЛИ не додавайте їх до Git!
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Системні файли (macOS, Windows)
+.DS_Store
+Thumbs.db
