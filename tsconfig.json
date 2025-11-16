@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2020",         /* Цільова версія JavaScript */
-    "module": "NodeNext",        /* Сучасна система модулів Node.js */
+    "target": "ES2020",         
+    "module": "NodeNext",        
     "moduleResolution": "NodeNext",
-    "rootDir": "./src",          /* Де лежить наш TS-код */
-    "outDir": "./dist",          /* Куди компілювати JS для продакшену */
-    "strict": true,              /* Увімкнути всі суворі перевірки */
-    "esModuleInterop": true,     /* Дозволяє import ... from ... */
-    "skipLibCheck": true         /* Прискорює компіляцію */
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "rootDir": "./src",          
+    "outDir": "./dist",          
+    "strict": true,              
+    "esModuleInterop": true,     
+    "skipLibCheck": true         
   },
-  "include": ["src/**/*"] /* Які папки перевіряти */
+  "include": ["src/**/*"] 
 }
