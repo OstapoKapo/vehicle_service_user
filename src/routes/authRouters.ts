@@ -1,13 +1,13 @@
 import express from 'express';
 const router = express.Router();
 
-import userController from '../controllers/auth.controller.js';
+import authController from '../controllers/auth.controller.js';
 import { authMiddleware } from '../common/middleware/auth.middleware.js';
+import { validateDto } from '../common/middleware/validation.middleware.js';
+import { LoginDto } from '../common/dto/auth.dto.js';
 
-router.post('/signup', userController.signup);
+router.post('/login', validateDto(LoginDto), authController.login);
 
-router.post('/login',userController.login);
-
-router.get('/me', authMiddleware, userController.me);
+router.post('/logout', authMiddleware, authController.logout);
 
 export default router;

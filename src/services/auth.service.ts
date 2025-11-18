@@ -1,5 +1,6 @@
-import { LoginDto, SignupDto } from '../common/dto/auth.dto.js';
-import { LoginResponse, SignupResponse } from '../common/types/auth.types.js';
+import { LoginDto } from '../common/dto/auth.dto.js';
+import { ApiError } from '../common/errors/api.error.js';
+import { LoginResponse } from '../common/types/auth.types.js';
 import { User } from '../generated/prisma/client.js';
 import userService from './user.service.js';
 import * as bcrypt from 'bcrypt';
@@ -7,7 +8,7 @@ import jwt from 'jsonwebtoken';
 
 class AuthService {
 
-    private generateAccessToken(user: User): string {
+  private generateAccessToken(user: User): string {
     const payload = {
       id: user.id,
       email: user.email,
@@ -24,37 +25,17 @@ class AuthService {
     const { email, password } = loginDto;
 
     const isUser = await userService.getUserByEmail(email);
-    if (!isUser) {
-      throw new Error('Користувача не знайдено');
-    }
+    if (!isUser) throw ApiError.NotFound('Invalid email or password');
+
+    if(!isUser.isAdmin) throw ApiError.Forbidden('Only admins can log in');
+    if (!isUser.password) throw ApiError.BadRequest('Invalid email or password');
 
     const isPasswordValid = await bcrypt.compare(password, isUser.password);
-    if (!isPasswordValid) {
-      throw new Error('Невірний пароль');
-    }
+    if (!isPasswordValid) throw ApiError.BadRequest('Invalid email or password');
 
     const accessToken = this.generateAccessToken(isUser);
 
-    return { accessToken, message: 'Успішний вхід' };
-  }
-
-  public async signup(signupDto: SignupDto): Promise<SignupResponse> {
-    const { email, password, firstName, lastName, confirmPassword } = signupDto;
-
-    if (password !== confirmPassword) {
-      throw new Error('Паролі не збігаються');
-    }
-
-    const existingUser = await userService.getUserByEmail(email);
-    if (existingUser) {
-      throw new Error('Користувач з таким email вже існує');
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    await userService.createUser({...signupDto, password: hashedPassword });
-    
-    return { message: `Користувача з email: ${email} успішно створено` };
+    return { accessToken, message: 'Successful login' };
   }
 }
 
