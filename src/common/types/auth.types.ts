@@ -1,9 +1,9 @@
-
+import { User } from '../../generated/prisma/client.js';
 export interface LoginResponse {
   accessToken: string;
   message: string;
 }
 
-export interface SignupResponse {
+export interface LogoutResponse {
   message: string;
-} 
+}
